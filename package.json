@@ -1,17 +1,10 @@
 {
   "name": "so-fetch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A whatwg fetch wrapper meant for redux dispatch ",
-  "main": "lib/so-fetch.js",
-  "scripts": {
-    "compile": "babel -d lib/ src/",
-    "prepublish": "npm run compile"
-  },
+  "main": "so-fetch.js",
   "dependencies": {
     "whatwg-fetch": "^0.9.0"
-  },
-  "devDependencies": {
-    "babel": "^5.8.21"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
