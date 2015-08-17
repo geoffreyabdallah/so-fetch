@@ -36,7 +36,7 @@ export function getUser() {
 ###API:
 
 ```javascript
-soFetch(url, options, creden)
+soFetch(url, options)
 ```
 
 ####URL
