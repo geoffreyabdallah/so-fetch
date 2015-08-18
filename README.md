@@ -19,7 +19,7 @@ In your /actions folder:
 
 'use strict';
 
-import soFetch from 'so-fetch'; //you can call it whatever - I wont be hurt, it is just a default export.
+import { soFetch } from 'so-fetch';
 import * as constants from './constants';
 
 export function getUser() {
