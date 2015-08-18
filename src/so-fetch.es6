@@ -35,7 +35,7 @@ function getQS(qs){
   }, '?');
 };
 
-export default function(url, options){
+export function soFetch(url, options){
   var {
     body,
     method,
@@ -68,4 +68,3 @@ export default function(url, options){
     }); 
   };
 };
-
