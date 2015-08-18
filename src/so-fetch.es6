@@ -12,7 +12,7 @@ function checkStatus(response) {
   }
 }
 
-function getQS(qs){
+function getQS(params){
 
   if (!params || typeof params !== 'object' && !Object.keys(params).length){
     throw new TypeError('Params Should be an object');
@@ -22,14 +22,14 @@ function getQS(qs){
     var returnString;
     if (params[key] && Array.isArray(params[key])) {
       returnString = params[key].reduce((string, value, index, innerKeys) => {
-        return string += encodeURIComponenet(key) + '[]=' + encodeURIComponenet(value) + (index !== innerKeys.length - 1 ? '&' : '');
+        return string += encodeURIComponent(key) + '[]=' + encodeURIComponent(value) + (index !== innerKeys.length - 1 ? '&' : '');
       }, string);
     } else if (params[key] && typeof params[key] === 'object' && Object.keys(params[key]).length) {
       returnString = Object.keys(params[key]).reduce((string, innerKey, index, innerKeys) => {
-        return (string += encodeURIComponenet(key) + '[' + encodeURIComponenet(innerKey) + ']=' + encodeURIComponenet(params[key][innerKey]) + (index !== innerKeys.length - 1 ? '&' : ''));
+        return (string += encodeURIComponent(key) + '[' + encodeURIComponent(innerKey) + ']=' + encodeURIComponent(params[key][innerKey]) + (index !== innerKeys.length - 1 ? '&' : ''));
       }, string);
     } else {
-      returnString = string += encodeURIComponenet(key) + '=' + encodeURIComponenet(params[key]);
+      returnString = string += encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
     }
     return returnString  + (index !== outerKeys.length - 1 ? '&' : ''); 
   }, '?');
