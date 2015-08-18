@@ -12,7 +12,7 @@ function checkStatus(response) {
   }
 }
 
-function getQS(params){
+export function getQS(params){
 
   if (!params || typeof params !== 'object' && !Object.keys(params).length){
     throw new TypeError('Params Should be an object');
