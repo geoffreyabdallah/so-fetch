@@ -1,6 +1,6 @@
 {
   "name": "so-fetch",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A whatwg fetch wrapper meant for redux dispatch ",
   "main": "lib/so-fetch.js",
   "scripts": {
