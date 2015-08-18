@@ -37,6 +37,7 @@ export function getUser() {
 
 ```javascript
 soFetch(url, options)
+getQS(params) //This is a helper function used by soFetch to build and encode a query string. Accepts an object of keys - { a: 'a', 'b': { 1: 'one', 2: 'two', 3: 'three'}, c: [ 1, 2, 3] } will return: "?a=a&b[1]=one&b[2]=two&b[3]=three&c[]=1&c[]=2&c[]=3"
 ```
 
 ####URL
