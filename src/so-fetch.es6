@@ -13,25 +13,25 @@ function checkStatus(response) {
 }
 
 export function getQS(params){
-
-  if (!params || typeof params === 'object' && !Array.isArray(params) && !Object.keys(params).length){
+  if (!params || typeof params === 'object' && !Array.isArray(params) && !Object.keys(params).length) {
     throw new TypeError('Params Should be an object');
   }
 
   return Object.keys(params).reduce((string, key, index, outerKeys) => {
-    var returnString;
-    if (params[key] && Array.isArray(params[key])) {
-      returnString = params[key].reduce((string, value, index, innerKeys) => {
-        return string += encodeURIComponent(key) + '[]=' + encodeURIComponent(value) + (index !== innerKeys.length - 1 ? '&' : '');
-      }, string);
-    } else if (params[key] && typeof params[key] === 'object' && Object.keys(params[key]).length) {
-      returnString = Object.keys(params[key]).reduce((string, innerKey, index, innerKeys) => {
-        return (string += encodeURIComponent(key) + '[' + encodeURIComponent(innerKey) + ']=' + encodeURIComponent(params[key][innerKey]) + (index !== innerKeys.length - 1 ? '&' : ''));
-      }, string);
-    } else {
-      returnString = string += encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+    if ((Array.isArray(params[key]) && params[key].length) || !Array.isArray(params[key]) && params[key] !== undefined) {
+      if (params[key] && Array.isArray(params[key])) {
+        return string + (string === '?' ? '' : '&') + params[key].reduce((innerString, value, index, innerKeys) => {
+          return innerString + encodeURIComponent(key) + '[]=' + encodeURIComponent(value) + (index !== innerKeys.length - 1 ? '&' : '');
+        }, '');
+      } else if (params[key] && typeof params[key] === 'object' && Object.keys(params[key]).length) {
+        return string + (string === '?' ? '' : '&') + Object.keys(params[key]).reduce((innerString, innerKey, index, innerKeys) => {
+          return innerString + encodeURIComponent(key) + '[' + encodeURIComponent(innerKey) + ']=' + encodeURIComponent(params[key][innerKey]) + (index !== innerKeys.length - 1 ? '&' : '');
+        }, '');
+      } else {
+        return string + (string === '?' ? '' : '&') +  encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+      }
     }
-    return returnString  + (index !== outerKeys.length - 1 ? '&' : ''); 
+    return string;
   }, '?');
 };
 
@@ -53,8 +53,7 @@ export function soFetch(url, options){
     if (method === 'put' || method === 'post') {
       optionsForFetch.headers = headers || { 'Accept': 'application/json', 'Content-Type': 'application/json' };
     }
-    if (qs) getQS(qs);
-    return fetch(url, optionsForFetch)
+    return fetch(url + (qs ? getQS(qs) : ''), optionsForFetch)
     .then(checkStatus)
     .then(res => res.json())
     .then(res => {
