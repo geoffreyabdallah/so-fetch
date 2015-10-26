@@ -60,10 +60,6 @@ export function soFetch(url, options){
       var action = { type: actionType };
       action[responseBinding || 'payload'] = res;
       return dispatch(action);
-    })
-    .catch(err => {
-      console.log(err.stack);
-      throw new Error(err);
-    }); 
+    });
   };
 };
